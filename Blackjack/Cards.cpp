@@ -1,5 +1,5 @@
 ///  @file Cards.cpp
-///  @brief Declerations for card related functions
+///  @brief Declarations for card related functions
 
 #include <iostream>
 #include "Cards.h"
@@ -45,5 +45,37 @@ void PrintCardDeck(Card*& _deck)
 	{
 		std::cout << "[" << i + 1 << "]: " << _deck[i].m_cardName << " of " 
 			<< _deck[i].m_cardSuit << std::endl;
+	}
+}
+
+void FillPointerDeck(Card**& _ptrDeck, Card*& _cardDeck)
+{
+	for (int i = 0; i < 52; ++i) { _ptrDeck[i] = &_cardDeck[i]; }
+}
+
+void ShufflePointerDeck(Card**& _deck)
+{
+	for (int i = 0; i < 52; ++i)
+	{
+		int j = rand() % 52;
+		Card* temp = _deck[i];
+		_deck[i] = _deck[j];
+		_deck[j] = temp;
+	}
+}
+
+void PrintPointerDeck(Card**& _deck)
+{
+	for (int i = 0; i < 52; ++i)
+	{
+		if (_deck[i] != nullptr)
+		{
+			std::cout << "[" << i + 1 << "]: " << _deck[i]->m_cardName << " of "
+				<< _deck[i]->m_cardSuit << std::endl;
+		}
+		else
+		{
+			std::cout << "[" << i + 1 << "]: Empty!" << std::endl;
+		}
 	}
 }

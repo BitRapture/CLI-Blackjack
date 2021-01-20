@@ -1,5 +1,5 @@
 /// \file Cards.h
-/// \brief Contains a card structure and related functions
+/// \brief Contains card structure and related functions
 /// \author George Smith
 
 #ifndef _CARDS_H_
@@ -16,5 +16,11 @@ struct Card
 bool InitialiseCardDeck(Card*& _deck);
 
 void PrintCardDeck(Card*& _deck);
+
+void FillPointerDeck(Card**& _ptrDeck, Card*& _cardDeck);
+
+void ShufflePointerDeck(Card**& _deck);
+
+void PrintPointerDeck(Card**& _deck);
 
 #endif  // _CARDS_H_
