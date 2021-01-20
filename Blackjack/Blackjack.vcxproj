@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Blackjack.cpp" />
+    <ClCompile Include="Cards.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cards.h" />
