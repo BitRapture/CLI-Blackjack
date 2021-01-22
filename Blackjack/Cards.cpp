@@ -16,7 +16,7 @@ bool InitialiseCardDeck(Card*& _deck)
 		{
 			char faceValue[3]{ 0 };
 			_itoa_s(i + 1, faceValue, 10);
-			_deck[s + i].m_cardValue = i + 1;
+			_deck[s + i].m_cardValue = (i >= 10 ?  10 : i + 1);
 			switch (i)
 			{
 				case 0: { strcpy_s(_deck[s + i].m_cardName, "Ace"); break; }
