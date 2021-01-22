@@ -9,15 +9,21 @@
 #include "Cards.h"
 
 //Header Contents
+
 struct Hand
 {
 	Card** m_hand{ nullptr };
 	int m_handSize{ 0 };
+	int m_handValue{ 0 };
 };
 
 bool InitialiseHand(Hand& _hand);
 
-void PullCard(Hand& _hand, Card**& _deck);
+void ResetHand(Hand& _hand);
+
+void FreeHand(Hand& _hand);
+
+bool PullCard(Hand& _hand, Card**& _deck);
 
 void PrintHand(Hand& _hand);
 
