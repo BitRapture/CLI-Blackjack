@@ -25,6 +25,8 @@ void PlayerCardPull(Hand& _player, Card**& _deck);
 
 void DealerCardPull(Hand& _dealer, bool& _holeCard, Card**& _deck);
 
-unsigned char ValidateHands(Hand& _player, Hand& _player);
+int ValidateHands(Hand& _player, Hand& _dealer, bool& _initialDraw);
+
+bool HitOrStandQuery();
 
 #endif  // _CARDS_H_

@@ -124,7 +124,7 @@ bool BetQuery(int& _betAmm, int& _balance)
 {
 	int amm = CinToInt();
 
-	if (amm >= 10 && amm <= _balance)
+	if (amm >= 1 && amm <= _balance)
 	{
 		_betAmm = amm;
 		_balance -= amm;
@@ -154,8 +154,9 @@ void PlayerCardPull(Hand& _player, Card**& _deck)
 
 		}
 	}
-	ContinueQuery();
 
+	std::cout << std::endl;
+	ContinueQuery();
 	std::cout << std::endl;
 }
 
@@ -181,16 +182,65 @@ void DealerCardPull(Hand& _dealer, bool& _holeCard, Card**& _deck)
 			<< _dealer.m_hand[_dealer.m_handSize - 1]->m_cardName
 			<< " of " << _dealer.m_hand[_dealer.m_handSize - 1]->m_cardSuit << "! ";
 	}
+
+	std::cout << std::endl;
 	ContinueQuery();
-	
 	std::cout << std::endl;
 }
 
-unsigned char ValidateHands(Hand& _player, Hand& _dealer)
+int ValidateHands(Hand& _player, Hand& _dealer, bool& _initialDraw)
 {
-	unsigned char handFlags = 0;
-	handFlags |= _player.m_handValue == 21;
-	handFlags |= (_player.m_handValue > 21) << 1;
-	handFlags |= (_dealer.m_handValue == 21) << 1;
-	handFlags |= (_dealer.m_handValue > 21) << 1;
+	int winState = 0;
+
+	if (_player.m_handValue == _dealer.m_handValue)
+	{
+		winState = (_initialDraw ? 0 : -1);
+	}
+	else if (_player.m_handValue == 21 || _player.m_handValue < 21 && _dealer.m_handValue > 21
+		|| _player.m_handValue < 21 && _dealer.m_handValue < _player.m_handValue && !_initialDraw)
+	{
+		winState = 1;
+	}
+	else if (_dealer.m_handValue == 21 || _player.m_handValue > 21
+		|| _dealer.m_handValue < 21 && _player.m_handValue < _dealer.m_handValue && !_initialDraw)
+	{
+		winState = 2;
+	}
+
+	return winState; // -1 = Draw (push), 0 = No winner, 1 = Player won, 2 = Dealer won
+}
+
+bool HitOrStandQuery()
+{
+	bool queryLoop = true;
+	bool ans = false;
+
+	while (queryLoop)
+	{
+		char query[1000]{ 0 };
+		std::cin.getline(query, 1000, '\n');
+		_strupr_s(query);
+		int queryLength = strnlen_s(query, 1000);
+		int id = (queryLength <= 5 ? StrToID(query) : 0);
+		switch (id)
+			{
+			case -229:	// hit
+			{
+				ans = true;
+				queryLoop = false;
+				break;
+			}
+			case -378:	// stand
+			{
+				queryLoop = false;
+				break;
+			}
+			default:
+			{
+				std::cout << "Please enter either [hit] or [stand]: ";
+				if (queryLength >= 1000) { std::cin.clear(); }
+			}
+		}
+	}
+	return ans;
 }
