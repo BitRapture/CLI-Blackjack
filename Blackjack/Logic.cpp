@@ -150,7 +150,7 @@ void PlayerCardPull(Hand& _player, Card**& _deck)
 		if (YesOrNoQuery())
 		{
 			_player.m_handValue += 10;
-			std::cout << "Changed value to 11, your hand value is now " << _player.m_handValue;
+			std::cout << "\nChanged value to 11, your hand value is now " << _player.m_handValue;
 
 		}
 	}
@@ -194,7 +194,7 @@ int ValidateHands(Hand& _player, Hand& _dealer, bool& _initialDraw)
 
 	if (_player.m_handValue == _dealer.m_handValue)
 	{
-		winState = (_initialDraw ? 0 : -1);
+		winState = (_initialDraw && _player.m_handValue == 21 ? -1 : (_initialDraw ? 0 : -1));
 	}
 	else if (_player.m_handValue == 21 || _player.m_handValue < 21 && _dealer.m_handValue > 21
 		|| _player.m_handValue < 21 && _dealer.m_handValue < _player.m_handValue && !_initialDraw)
