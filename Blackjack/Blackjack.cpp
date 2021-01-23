@@ -213,7 +213,7 @@ int main()
 						}
 						else
 						{
-							std::cout << "Game over! You ran out of money!";
+							std::cout << "Game over! You ran out of money!" << std::endl;
 							ContinueQuery();
 							PrintScreen(player, dealer, dealerHoleCard, betAmm, balance);
 							balance = 1000;
@@ -244,7 +244,7 @@ int main()
 					}
 					dealerHoleCard = false;
 					PrintScreen(player, dealer, dealerHoleCard, betAmm, balance);
-					while (dealer.m_handValue < 17) 
+					while (dealer.m_handValue < 17 && player.m_handValue <= 21)
 					{ 
 						DealerCardPull(dealer, dealerHoleCard, deck);
 						PrintScreen(player, dealer, dealerHoleCard, betAmm, balance);
