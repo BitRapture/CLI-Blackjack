@@ -12,13 +12,15 @@ int main()
 	int gameState = 0;
 
 	Card* allCards = nullptr;
-	Card** deck = new Card * [52]{ nullptr };
+	Card** deck = new Card * [52]{ nullptr },
+		** discard = new Card * [52]{ nullptr };
 	Hand player, dealer;
 	int betAmm = 0, balance = 1000;
 	bool dealerHoleCard = true;
 
 	errorHandling = !InitialiseCardDeck(allCards);
 	errorHandling |= deck == nullptr;
+	errorHandling |= discard == nullptr;
 	errorHandling |= !InitialiseHand(player);
 	errorHandling |= !InitialiseHand(dealer);
 
@@ -37,7 +39,7 @@ int main()
 			<< "| $$__/ $$| $$|  $$$$$$$| $$_____ | $$$$$$\\| $$__| $$|  $$$$$$$| $$_____ | $$$$$$\\ \n"
 			<< "| $$    $$| $$ \\$$    $$ \\$$     \\| $$  \\$$ \\$$    $$ \\$$    $$ \\$$     \\| $$  \\$$\\\n"
 			<< " \\$$$$$$$  \\$$  \\$$$$$$$  \\$$$$$$$ \\$$   \\$$ \\$$$$$$   \\$$$$$$$  \\$$$$$$$ \\$$   \\$$\n"
-			<< "                                   Pog Edition                                         \n\n\n" << std::endl;
+			<< "                                   CLI Edition                                         \n\n\n" << std::endl;
 
 		while (gameLoop)
 		{
@@ -45,6 +47,11 @@ int main()
 			{
 				case 0: // Main menu
 				{
+					if (discard[0] != nullptr) { for (int i = 0; i < 52; ++i) { discard[i] = nullptr; } }
+					FillPointerDeck(deck, allCards);
+					ShufflePointerDeck(deck);
+					gameDebugMode = true;
+
 					bool menuLoop = true;
 					std::cout << "[1] Play game \n[2] Debug mode \n[3] Read rules \n[4] Exit\n" << std::endl;
 					
@@ -54,11 +61,11 @@ int main()
 						int query = CinToInt();
 						switch (query)
 						{
-							case 2:
-							{
-								gameDebugMode = true;
-							}
 							case 1:
+							{
+								gameDebugMode = false;
+							}
+							case 2:
 							{
 								gameState = 1;
 								menuLoop = false;
@@ -66,8 +73,9 @@ int main()
 							}
 							case 3:
 							{
-								gameState = -1;
-								menuLoop = false;
+								PrintRules();
+								ContinueQuery();
+								std::cout << std::endl;
 								break;
 							}
 							case 4:
@@ -83,8 +91,11 @@ int main()
 
 				case 1: // Reset game
 				{
-					FillPointerDeck(deck, allCards);
-					ShufflePointerDeck(deck);
+					if (deck[0] == nullptr)
+					{
+						MovePointerDeck(deck, discard);
+						ShufflePointerDeck(deck);
+					}
 					ResetHand(player);
 					ResetHand(dealer);
 					PrintScreen(player, dealer, dealerHoleCard, betAmm, balance);
@@ -115,9 +126,9 @@ int main()
 				{
 					for (int i = 0; i < 2; ++i)
 					{
-						DealerCardPull(dealer, dealerHoleCard, deck);
+						DealerCardPull(dealer, dealerHoleCard, deck, discard, allCards);
 						PrintScreen(player, dealer, dealerHoleCard, betAmm, balance);
-						PlayerCardPull(player, deck);
+						PlayerCardPull(player, deck, discard, allCards);
 						PrintScreen(player, dealer, dealerHoleCard, betAmm, balance);
 					}
 					++gameState;
@@ -232,7 +243,7 @@ int main()
 						if (HitOrStandQuery()) 
 						{ 
 							std::cout << std::endl;
-							PlayerCardPull(player, deck);
+							PlayerCardPull(player, deck, discard, allCards);
 							PrintScreen(player, dealer, dealerHoleCard, betAmm, balance);
 						}
 						else 
@@ -246,7 +257,7 @@ int main()
 					PrintScreen(player, dealer, dealerHoleCard, betAmm, balance);
 					while (dealer.m_handValue < 17 && player.m_handValue <= 21)
 					{ 
-						DealerCardPull(dealer, dealerHoleCard, deck);
+						DealerCardPull(dealer, dealerHoleCard, deck, discard, allCards);
 						PrintScreen(player, dealer, dealerHoleCard, betAmm, balance);
 					}
 					if (dealer.m_handValue < 21)
@@ -272,5 +283,6 @@ int main()
 
 	delete[] allCards;
 	delete[] deck;
+	delete[] discard;
 	return 0;
 }

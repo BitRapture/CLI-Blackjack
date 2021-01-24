@@ -64,6 +64,16 @@ void ShufflePointerDeck(Card**& _deck)
 	}
 }
 
+void MovePointerDeck(Card**& _deckA, Card**& _deckB)
+{
+	for (int i = 0; i < 52; ++i)
+	{
+		Card* temp = _deckA[i];
+		_deckA[i] = _deckB[i];
+		_deckB[i] = temp;
+	}
+}
+
 void PrintPointerDeck(Card**& _deck)
 {
 	for (int i = 0; i < 52; ++i)

@@ -21,12 +21,14 @@ int CinToInt();
 
 bool BetQuery(int& _betAmm, int& _balance);
 
-void PlayerCardPull(Hand& _player, Card**& _deck);
+void PlayerCardPull(Hand& _player, Card**& _deck, Card**& _discard, Card*& _allCards);
 
-void DealerCardPull(Hand& _dealer, bool& _holeCard, Card**& _deck);
+void DealerCardPull(Hand& _dealer, bool& _holeCard, Card**& _deck, Card**& _discard, Card*& _allCards);
 
 int ValidateHands(Hand& _player, Hand& _dealer, bool& _initialDraw);
 
 bool HitOrStandQuery();
+
+void PrintRules();
 
 #endif  // _CARDS_H_

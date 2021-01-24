@@ -136,9 +136,14 @@ bool BetQuery(int& _betAmm, int& _balance)
 	}
 }
 
-void PlayerCardPull(Hand& _player, Card**& _deck)
+void PlayerCardPull(Hand& _player, Card**& _deck, Card**& _discard, Card*& _allCards)
 {
-	bool ace = PullCard(_player, _deck);
+	if (_deck[0] == nullptr)
+	{
+		MovePointerDeck(_deck, _discard);
+		ShufflePointerDeck(_deck);
+	}
+	bool ace = PullCard(_player, _deck, _discard);
 	std::cout << "You pulled " << (ace || _player.m_hand[_player.m_handSize - 1]->m_cardValue == 8 ? "an " : "a ")
 		<< _player.m_hand[_player.m_handSize - 1]->m_cardName
 		<< " of " << _player.m_hand[_player.m_handSize - 1]->m_cardSuit << "! ";
@@ -160,9 +165,14 @@ void PlayerCardPull(Hand& _player, Card**& _deck)
 	std::cout << std::endl;
 }
 
-void DealerCardPull(Hand& _dealer, bool& _holeCard, Card**& _deck)
+void DealerCardPull(Hand& _dealer, bool& _holeCard, Card**& _deck, Card**& _discard, Card*& _allCards)
 {
-	bool ace = PullCard(_dealer, _deck);
+	if (_deck[0] == nullptr)
+	{
+		MovePointerDeck(_deck, _discard);
+		ShufflePointerDeck(_deck);
+	}
+	bool ace = PullCard(_dealer, _deck, _discard);
 	
 	if (ace)
 	{
@@ -243,4 +253,20 @@ bool HitOrStandQuery()
 		}
 	}
 	return ans;
+}
+
+void PrintRules()
+{
+	std::cout << "\nHow to play Blackjack:\n"
+		<< "The aim of the game is to get a hand value higher than the dealer's hand value. Your hand value \n"
+		<< "can go up to 21, anything past that is a bust and you will lose. Every card has a defined value.\n"
+		<< "Ace cards can be either 1 or 11, cards 2 through 10 are their face value, all court cards have \n"
+		<< "a value of 10. All cards in your hand give you a total hand value.\n"
+		<< "At the start of the game, you and the dealer will be given two cards. It is possible to get a \n"
+		<< "natural 21 which is also known as a blackjack! You will win immediately unless the dealer ties. \n"
+		<< "If you get a blackjack and the dealer is bust, you get a bet bonus.\n"
+		<< "After this initial drawing stage, you will then either [hit] or [stand]; hitting lets you add \n"
+		<< "more cards to your hand so you can increase your hand total, however if you draw too many you \n"
+		<< "can go bust and lose your bet. Once you're happy with your hand total you can [stand] which \n"
+		<< "lets the dealer take their turn, they will draw up to a soft 17 hand total." << std::endl;
 }

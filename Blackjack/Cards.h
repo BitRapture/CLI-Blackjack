@@ -23,4 +23,6 @@ void ShufflePointerDeck(Card**& _deck);
 
 void PrintPointerDeck(Card**& _deck);
 
+void MovePointerDeck(Card**& _deckA, Card**& _deckB);
+
 #endif  // _CARDS_H_

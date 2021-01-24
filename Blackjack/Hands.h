@@ -23,7 +23,7 @@ void ResetHand(Hand& _hand);
 
 void FreeHand(Hand& _hand);
 
-bool PullCard(Hand& _hand, Card**& _deck);
+bool PullCard(Hand& _hand, Card**& _deck, Card**& _discard);
 
 void PrintHand(Hand& _hand);
 
