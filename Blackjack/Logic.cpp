@@ -264,7 +264,7 @@ void PrintRules()
 		<< "a value of 10. All cards in your hand give you a total hand value.\n"
 		<< "At the start of the game, you and the dealer will be given two cards. It is possible to get a \n"
 		<< "natural 21 which is also known as a blackjack! You will win immediately unless the dealer ties. \n"
-		<< "If you get a blackjack and the dealer is bust, you get a bet bonus.\n"
+		<< "If you get a blackjack hand and the dealer is bust, you get a bet bonus.\n"
 		<< "After this initial drawing stage, you will then either [hit] or [stand]; hitting lets you add \n"
 		<< "more cards to your hand so you can increase your hand total, however if you draw too many you \n"
 		<< "can go bust and lose your bet. Once you're happy with your hand total you can [stand] which \n"

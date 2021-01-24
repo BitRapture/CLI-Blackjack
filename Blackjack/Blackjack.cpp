@@ -155,12 +155,12 @@ int main()
 						{
 							balance += betAmm * 2;
 							dealerHoleCard = false;
-							if (gameInitalDraw && player.m_handValue == 21 && dealer.m_handValue > 21)
+							if (player.m_handValue == 21 && dealer.m_handValue > 21)
 							{ 
 								balance += betAmm / 2;
 								betAmm = 0;
 								PrintScreen(player, dealer, dealerHoleCard, betAmm, balance);
-								std::cout << "Blackjack, you win! The dealer is bust, you get a bet bonus!"; 
+								std::cout << "Blackjack hand, you win! The dealer is bust, you get a bet bonus!"; 
 
 							} 
 							else if (player.m_handValue == 21)
