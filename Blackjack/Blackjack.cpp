@@ -126,9 +126,9 @@ int main()
 				{
 					for (int i = 0; i < 2; ++i)
 					{
-						DealerCardPull(dealer, dealerHoleCard, deck, discard, allCards);
+						DealerCardPull(dealer, dealerHoleCard, deck, discard);
 						PrintScreen(player, dealer, dealerHoleCard, betAmm, balance);
-						PlayerCardPull(player, deck, discard, allCards);
+						PlayerCardPull(player, deck, discard);
 						PrintScreen(player, dealer, dealerHoleCard, betAmm, balance);
 					}
 					++gameState;
@@ -243,7 +243,7 @@ int main()
 						if (HitOrStandQuery()) 
 						{ 
 							std::cout << std::endl;
-							PlayerCardPull(player, deck, discard, allCards);
+							PlayerCardPull(player, deck, discard);
 							PrintScreen(player, dealer, dealerHoleCard, betAmm, balance);
 						}
 						else 
@@ -257,7 +257,7 @@ int main()
 					PrintScreen(player, dealer, dealerHoleCard, betAmm, balance);
 					while (dealer.m_handValue < 17 && player.m_handValue <= 21)
 					{ 
-						DealerCardPull(dealer, dealerHoleCard, deck, discard, allCards);
+						DealerCardPull(dealer, dealerHoleCard, deck, discard);
 						PrintScreen(player, dealer, dealerHoleCard, betAmm, balance);
 					}
 					if (dealer.m_handValue < 21)

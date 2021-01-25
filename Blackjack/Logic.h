@@ -21,9 +21,9 @@ int CinToInt();
 
 bool BetQuery(int& _betAmm, int& _balance);
 
-void PlayerCardPull(Hand& _player, Card**& _deck, Card**& _discard, Card*& _allCards);
+void PlayerCardPull(Hand& _player, Card**& _deck, Card**& _discard);
 
-void DealerCardPull(Hand& _dealer, bool& _holeCard, Card**& _deck, Card**& _discard, Card*& _allCards);
+void DealerCardPull(Hand& _dealer, bool& _holeCard, Card**& _deck, Card**& _discard);
 
 int ValidateHands(Hand& _player, Hand& _dealer, bool& _initialDraw);
 

@@ -136,7 +136,7 @@ bool BetQuery(int& _betAmm, int& _balance)
 	}
 }
 
-void PlayerCardPull(Hand& _player, Card**& _deck, Card**& _discard, Card*& _allCards)
+void PlayerCardPull(Hand& _player, Card**& _deck, Card**& _discard)
 {
 	if (_deck[0] == nullptr)
 	{
@@ -165,7 +165,7 @@ void PlayerCardPull(Hand& _player, Card**& _deck, Card**& _discard, Card*& _allC
 	std::cout << std::endl;
 }
 
-void DealerCardPull(Hand& _dealer, bool& _holeCard, Card**& _deck, Card**& _discard, Card*& _allCards)
+void DealerCardPull(Hand& _dealer, bool& _holeCard, Card**& _deck, Card**& _discard)
 {
 	if (_deck[0] == nullptr)
 	{
